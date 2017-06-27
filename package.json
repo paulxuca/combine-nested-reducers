@@ -1,0 +1,15 @@
+{
+  "name": "combine-nested-reducers",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "files": ["index.js"],
+  "author": "",
+  "license": "ISC",
+  "peerDependencies": {
+    "redux": "^3.7.1"
+  },
+  "dependencies": {
+    "is-plain-obj": "^1.1.0"
+  }
+}
