@@ -3,13 +3,22 @@
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
-  "files": ["index.js"],
+  "files": [
+    "index.js"
+  ],
   "author": "",
   "license": "ISC",
+  "scripts": {
+    "test": "ava && xo"
+  },
   "peerDependencies": {
     "redux": "^3.7.1"
   },
   "dependencies": {
-    "is-plain-obj": "^1.1.0"
+    "redux": "^3.7.2"
+  },
+  "devDependencies": {
+    "ava": "^0.23.0",
+    "xo": "^0.18.2"
   }
 }

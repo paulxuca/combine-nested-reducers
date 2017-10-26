@@ -1,28 +1,22 @@
 const {combineReducers} = require('redux');
-const isPlainObj = require('is-plain-obj');
 
-const hasObject = obj => Object.keys(obj).some(key => isPlainObj(obj[key]));
-const mapObj = arr => {
-	const result = {};
-
-	for (const [val, key] of arr) {
-		result[key] = Array.isArray(val) ? mapObj(val) : val;
+const combineNestedReducers = reducerObj => {
+	if (typeof reducerObj === 'function') {
+		return reducerObj;
 	}
 
-	return result;
-};
+	if (typeof reducerObj === 'object') {
+		const reducerKeys = Object.keys(reducerObj);
+		const combinedReducersObj = {};
 
-const combineNestedReducers = reducer => {
-	const itermediateReducer = Object.keys(reducer).map(key => {
-		let value = reducer[key];
+		for (const key of reducerKeys) {
+			combinedReducersObj[key] = combineNestedReducers(reducerObj[key]);
+		}
 
-		value = (isPlainObj(value) && (hasObject(value) ? combineNestedReducers(value) : combineReducers(value))) || value;
+		return combineReducers(combinedReducersObj);
+	}
 
-		return [value, key];
-	});
-
-	return combineReducers(mapObj(itermediateReducer));
+	throw new Error(`[combine-nested-reducers] Invalid item in reducer object. Expected function or object, got ${typeof reducerObj}`);
 };
 
 module.exports = combineNestedReducers;
-
