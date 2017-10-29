@@ -30,3 +30,11 @@ test('combines reducer object of functions and objects', t => {
 		}
 	});
 });
+
+test('should throw error on null object', t => {
+	const reducerObj = {
+		null: null
+	};
+
+	t.throws(() => combineNestedReducers(reducerObj), '[combine-nested-reducers] Invalid item in reducer object. Expected function or object, got null');
+});
